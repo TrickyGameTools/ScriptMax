@@ -165,14 +165,14 @@ Type TLexer
 		End If
 	End Method
 	
-	' Checks if char is an operator (see ASCII table)
+	' Checks if char is an operator (see operators.txt)
 	Method isOperator:Int(char:String)
 		If operators.contains(char) Then Return True
 		Return False
 	End Method
 	
 	
-	' Checks if char is a digit (see operators.txt)
+	' Checks if char is a digit (see ASCII table)
 	Method isDigit:Int(char:String)
 		If Asc(char) >= 48 And Asc(char) <= 57 ' 0 - 9
 			Return True
