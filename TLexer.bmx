@@ -6,6 +6,7 @@ Include "TToken.bmx"
 
 ' Lexer Class
 Type TLexer
+
 	
 	' List that holds the generated tokens
 	Field tokens:TList = New TList
@@ -16,11 +17,13 @@ Type TLexer
 	Field commentMultiLineStart:String = LoadMultiLineCommentStart("config/comment.txt")
 	Field commentMultiLineEnd:String = LoadMultiLineCommentEnd("config/comment.txt")
 	Field endLine:String = LoadEndLine("config/endline.txt")
-	Field keywords:String = LoadKeywords("config/keywords.txt")
+	Field keywords:TList = New TList
 
 
 	' Start lexing the file (fileIn: path to file that needs to be lexed | fileOut: not yet been used)
 	Method LexFile:Int(fileIn:String, fileOut:String = "")
+		' Load the keywords
+		LoadKeywords("config/keywords.txt", keywords)
 		' points to the current position of the line that is been processed
 		Local i:Int = 1
 		' currend line of the file (file is been lexed line by line)
@@ -207,7 +210,9 @@ Type TLexer
 	
 	' Checks if string is a keyword (see keywords.txt)
 	Method isKeyword:Int(str:String)
-		If keywords.contains(str) Then Return True
+		For Local kw:String = EachIn keywords
+			If kw = str Then Return True
+		Next
 		Return False
 	End Method
 	
@@ -238,15 +243,13 @@ Function LoadOperators:String(path:String)
 	Return str
 End Function
 
-Function LoadKeywords:String(path:String)
-	Local str:String
+Function LoadKeywords(path:String, list:TList Var)
 	Local fileIn:TStream = ReadFile(path)
 	If Not fileIn Then RuntimeError("Unable to load " + path)
 	While Not Eof(fileIn)
-		str = str + ReadLine(fileIn) + " "
+		list.AddLast(ReadLine(fileIn))
 	Wend
 	CloseStream(fileIn)
-	Return str
 End Function
 
 Function LoadSingleLineComment:String(path:String)
