@@ -1,0 +1,22 @@
+
+myVar = 10
+
+' This is a single line comment 
+
+Rem
+	This is
+	a multi line
+	comment
+EndRem
+
+While ' This is a keyword
+
+If Else EndIf  ' These are some more keywords
+
+yourVar=20
+
+c = (myVar  + yourVar) * 2
+
+Function myFunc()
+	' This is a function
+EndFunction
