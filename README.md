@@ -4,4 +4,4 @@
 #### This project is far from beeing finished
     Currently, there is only a working Lexer. An example picture is shown below.
     
-<img src = doc/lexFromThisToThat.jpg width="90%"> </img>
+<img src = doc/lexFromThisToThat.jpg width="100%"> </img>
